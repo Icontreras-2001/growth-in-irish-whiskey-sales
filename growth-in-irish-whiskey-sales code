@@ -1,0 +1,48 @@
+### TIME SERIES PREDICTION: Growth in Irish Whiskey Sales ###
+
+import pandas as pd
+import numpy as np
+import warnings
+import itertools
+import matplotlib
+import matplotlib.pyplot as pp
+
+%matplotlib inline
+
+from pylab import rcParams
+import statsmodels.api as sm
+from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
+from statsmodels.tsa.stattools import adfuller
+
+#Find the Current Working Directory:
+import os
+os.getcwd()
+
+os.chdir("/Users/bella/Desktop/datanalysis/Project_time_series_whiskey")
+
+## Upload Data and Indexing with Time ##
+
+# Import the data
+IWS = pd.read_csv('Irish Whiskey Sales by Volume.csv')
+IWS.head()
+
+print(IWS['Year'])
+
+IWS = pd.read_csv('Irish Whiskey Sales by Volume.csv')
+
+# Set the date as index
+IWS = IWS.set_index('Year')
+IWS.index = pd.to_datetime(IWS.index, format='%Y')
+
+fig, ax = pp.subplots(figsize=(20, 6))
+
+#IWS2 = IWS.set_index('Year')
+#IWS2 = IWS2.resample('Y').sum()
+
+#2
+y = IWS['Cases']
+#fig, ax = pp.subplots(figsize=(20, 6))
+ax.plot(y,marker='.', linestyle='-', linewidth=0.5, label='Yearly')
+ax.plot(IWS2.resample('Y').mean(),marker='o', markersize=4, linestyle='-', label='Yearly Mean Resample')
+ax.set_ylabel('Cases')
+ax.legend();
